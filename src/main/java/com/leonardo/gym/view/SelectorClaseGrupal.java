@@ -14,6 +14,8 @@ import javafx.scene.control.Tab;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.leonardo.gym.model.ClaseGrupal;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -31,6 +33,14 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     public SelectorClaseGrupal() {
         initComponents();
         modelo = (DefaultTableModel) tabClases.getModel();
+        tabClases.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e){
+                if(e.getClickCount()==2){
+                    
+                }
+            }
+
+        });
       RecargarTablaClase();}
 
     public void RecargarTablaClase() {
