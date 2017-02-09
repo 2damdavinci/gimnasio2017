@@ -6,6 +6,7 @@
 package com.leonardo.gym.view;
 
 import com.leonardo.gym.dao.ClasesGrupales;
+import com.leonardo.gym.dao.HorariosClasesGrupales;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -26,17 +27,22 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     /**
      * Creates new form BuscadorClienteClaseGrupal
      */
-    DefaultTableModel modelo;
-    ResultSet rs;
+    DefaultTableModel modelo,modelo1;
+    ResultSet rs,rs1;
     ClasesGrupales clase = new ClasesGrupales();
+    HorariosClasesGrupales horario = new HorariosClasesGrupales();
 
     public SelectorClaseGrupal() {
         initComponents();
         modelo = (DefaultTableModel) tabClases.getModel();
+        modelo1= (DefaultTableModel) tabHorario.getModel();
         tabClases.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                 if(e.getClickCount()==2){
-                    
+                    ClaseGrupal cl = new ClaseGrupal();
+                    cl.setId(Integer.parseInt(tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString()));
+                    cl.setNombre(tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString());
+                    RecargarTablaHorarios(cl);
                 }
             }
 
@@ -54,6 +60,22 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{rs.getInt("id_clase"),rs.getString("nombre"), rs.getString("descripcion"), rs.getInt("aforo")});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SelectorClaseGrupal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        public void RecargarTablaHorarios(ClaseGrupal clase) {
+        for (int i = 0; i < tabHorario.getRowCount(); i++) {
+            modelo1.removeRow(i);
+            i -= 1;
+        }
+        rs1 = horario.ReturnHorarioClase(clase);
+
+        try {
+
+            while (rs1.next()) {
+                modelo1.addRow(new Object[]{clase.getNombre(),rs1.getString("fecha"), rs1.getString("hora"), rs1.getInt("plazasLibres")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(SelectorClaseGrupal.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,7 +101,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tabHorarios = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabHorario = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,7 +185,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
 
         jLabel1.setText("Seleccione el horario deseado:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabHorario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -171,7 +193,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                 "Clase", "Fecha", "Hora", "Plazas libres"
             }
         ));
-        tabHorarios.setViewportView(jTable1);
+        tabHorarios.setViewportView(tabHorario);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -304,8 +326,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable tabClases;
+    private javax.swing.JTable tabHorario;
     private javax.swing.JScrollPane tabHorarios;
     // End of variables declaration//GEN-END:variables
 AñadirClase jclase;

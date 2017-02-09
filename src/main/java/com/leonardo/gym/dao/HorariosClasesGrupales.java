@@ -5,6 +5,7 @@
  */
 package com.leonardo.gym.dao;
 
+import com.leonardo.gym.model.ClaseGrupal;
 import com.leonardo.gym.model.HorarioClaseGrupal;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,14 +26,14 @@ public class HorariosClasesGrupales {
 
 
 
-    public ResultSet ReturnHorarioClase(HorarioClaseGrupal horario) {
+    public ResultSet ReturnHorarioClase(ClaseGrupal clase) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
             Connection conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3307/gimnasio", "davinci", "dam2davinci");
             Statement sentencia = conexion.createStatement();
 
-            rs = sentencia.executeQuery("SELECT * FROM HorarioClasesGrupales where id_clase = " + horario.getId());
+            rs = sentencia.executeQuery("SELECT id_horario, id_clase, profesor, DATE_FORMAT(fecha,'%d/%m/%Y') as fecha, plazasLibres, hora FROM HorarioClasesGrupales where id_clase = " + clase.getId());
 
         } catch (ClassNotFoundException cn) {
             cn.printStackTrace();
