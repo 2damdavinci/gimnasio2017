@@ -5,6 +5,8 @@
  */
 package com.leonardo.gym.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -13,9 +15,8 @@ import java.util.Date;
  */
 public class HorarioClaseGrupal {
     int id, id_clase, plazaslibres;
-    String profesor;
+    String profesor,hora;
     Date fecha;
-    Date hora;
 
     public HorarioClaseGrupal() {
         id=0;
@@ -26,7 +27,7 @@ public class HorarioClaseGrupal {
         hora=null;
     }
 
-    public HorarioClaseGrupal(int id, int id_clase, int plazaslibres, String profesor, Date fecha, Date hora) {
+    public HorarioClaseGrupal(int id, int id_clase, int plazaslibres, String profesor, Date fecha, String hora) {
         this.id = id;
         this.id_clase = id_clase;
         this.plazaslibres = plazaslibres;
@@ -66,21 +67,16 @@ public class HorarioClaseGrupal {
     public void setProfesor(String profesor) {
         this.profesor = profesor;
     }
-
-    public Date getFecha() {
+    public Date getFecha(){
         return fecha;
+    }
+    public String getFechaSQL() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(fecha);
     }
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public Date getHora() {
-        return hora;
-    }
-
-    public void setHora(Date hora) {
-        this.hora = hora;
     }
     
 }
