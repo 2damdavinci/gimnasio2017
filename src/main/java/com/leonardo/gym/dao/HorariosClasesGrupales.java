@@ -52,7 +52,7 @@ public class HorariosClasesGrupales {
             Connection conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3307/gimnasio", "davinci", "dam2davinci");
             Statement sentencia = conexion.createStatement();
 
-            sentencia.executeUpdate("INSERT INTO HorarioClasesGrupales (id_clase, profesor, fecha, plazasLibres, hora) VALUES(" + horario.getId_clase() + ", '" + horario.getProfesor() + "', '" + horario.getFecha() + "', "+horario.getPlazaslibres()+", '"+horario.getHora()+"')");
+            sentencia.executeUpdate("INSERT INTO HorarioClasesGrupales (id_clase, profesor, fecha, plazasLibres, hora) VALUES(" + horario.getId_clase() + ", '" + horario.getProfesor() + "', '" + horario.getFechaSQL()+ "', "+horario.getPlazaslibres()+", '"+horario.getHora()+"')");
         } catch (ClassNotFoundException cn) {
             cn.printStackTrace();
         } catch (SQLException e) {
@@ -85,7 +85,7 @@ public class HorariosClasesGrupales {
             Statement sentencia = conexion.createStatement();
                     
            
-            sentencia.executeUpdate("UPDATE HorarioClasesGrupales SET id_clase="+horario.getId_clase()+", profesor='"+horario.getProfesor()+"', fecha='"+horario.getFecha()+"', plazasLibres='"+horario.getPlazaslibres()+"',hora='"+horario.getHora()+"' WHERE id_horario= "+horario.getId());
+            sentencia.executeUpdate("UPDATE HorarioClasesGrupales SET id_clase="+horario.getId_clase()+", profesor='"+horario.getProfesor()+"', fecha='"+horario.getFechaSQL()+"', plazasLibres='"+horario.getPlazaslibres()+"',hora='"+horario.getHora()+"' WHERE id_horario= "+horario.getId());
         } catch (ClassNotFoundException cn) {
             cn.printStackTrace();
         } catch (SQLException e) {

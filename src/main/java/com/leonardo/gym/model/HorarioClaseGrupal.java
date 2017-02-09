@@ -78,5 +78,13 @@ public class HorarioClaseGrupal {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
     
 }
