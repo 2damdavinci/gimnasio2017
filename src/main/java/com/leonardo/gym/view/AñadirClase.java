@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
  * @author Gabri
  */
 public class AñadirClase extends javax.swing.JDialog {
+
     ClasesGrupales clase = new ClasesGrupales();
     SelectorClaseGrupal p;
     ClaseGrupal claseinsert;
@@ -23,8 +24,8 @@ public class AñadirClase extends javax.swing.JDialog {
      */
     public AñadirClase(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-       p = (SelectorClaseGrupal) parent;
-        
+        p = (SelectorClaseGrupal) parent;
+
         initComponents();
     }
 
@@ -138,19 +139,18 @@ public class AñadirClase extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-       int aforo=0;
-        System.out.println(txtADescripcion.getText());
-        try{
-        aforo=Integer.parseInt(txtAforo.getText());
-        claseinsert= new ClaseGrupal(0,txtNombre.getText(), txtADescripcion.getText(), aforo);
-          clase.AñadirClase(claseinsert);
-       p.RecargarTablaClase();
-       dispose();
-       }catch(NumberFormatException e){
-           JOptionPane.showMessageDialog(null, "El aforo tiene que ser un número, no se admiten caracteres");
-       }
-     
-       
+        int aforo = 0;
+        try {
+            aforo = Integer.parseInt(txtAforo.getText());
+            claseinsert = new ClaseGrupal(0, txtNombre.getText(), txtADescripcion.getText(), aforo);
+            clase.AñadirClase(claseinsert);
+            p.RecargarTablaClase();
+            dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El aforo tiene que ser un número, no se admiten caracteres");
+        }
+
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
