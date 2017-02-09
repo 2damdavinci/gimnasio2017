@@ -214,6 +214,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAñadirActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+       if(tabClases.getSelectedRow()>-1){
         int dialogResult = JOptionPane.showConfirmDialog(null, "Esta seguro de borrar la clase: " + tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString(), "ATENCION", JOptionPane.YES_NO_OPTION);
         if (dialogResult == JOptionPane.YES_OPTION) {
 
@@ -230,6 +231,9 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             clase.EliminarClase(clasedelete);
             RecargarTablaClase();
         }
+       }else{
+           JOptionPane.showMessageDialog(null, "Tiene que seleccionar la clase que desee eliminar");
+       }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
