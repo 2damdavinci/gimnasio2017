@@ -6,6 +6,7 @@
 package com.leonardo.gym.view;
 
 import com.leonardo.gym.dao.ClasesGrupales;
+import com.leonardo.gym.model.ClaseGrupal;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,7 +17,7 @@ public class ModificarClase extends javax.swing.JDialog {
 
     ClasesGrupales clase = new ClasesGrupales();
     SelectorClaseGrupal p;
-    String id;
+    int id;
     ClaseGrupal claseupdate;
 
     /**
@@ -33,9 +34,9 @@ public class ModificarClase extends javax.swing.JDialog {
     public void ActualizarTextos(ClaseGrupal clase) {
         txtNombre.setText(clase.getNombre());
         txtADescripcion.setText(clase.getDescripcion());
-        txtAforo.setText(clase.getAforo());
+        txtAforo.setText(String.valueOf(clase.getAforo()));
         claseupdate=clase;
-        this.id=id;
+        this.id=clase.getId();
     }
 
     /**

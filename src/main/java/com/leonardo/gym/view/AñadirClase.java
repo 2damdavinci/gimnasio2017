@@ -6,6 +6,7 @@
 package com.leonardo.gym.view;
 
 import com.leonardo.gym.dao.ClasesGrupales;
+import com.leonardo.gym.model.ClaseGrupal;
 import javax.swing.JOptionPane;
 
 /**

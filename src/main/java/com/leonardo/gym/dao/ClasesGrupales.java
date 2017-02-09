@@ -5,6 +5,7 @@
  */
 package com.leonardo.gym.dao;
 
+import com.leonardo.gym.model.ClaseGrupal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -70,7 +71,7 @@ public class ClasesGrupales {
             Connection conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3307/gimnasio", "davinci", "dam2davinci");
             Statement sentencia = conexion.createStatement();
 
-            sentencia.executeUpdate("INSERT INTO ClasesGrupales (nombre, descripcion, aforo) VALUES('" + clase.getNombre() + "', '" + clase.getDescripcion() + "', " + clase.getAforo + ")");
+            sentencia.executeUpdate("INSERT INTO ClasesGrupales (nombre, descripcion, aforo) VALUES('" + clase.getNombre() + "', '" + clase.getDescripcion() + "', " + clase.getAforo() + ")");
         } catch (ClassNotFoundException cn) {
             cn.printStackTrace();
         } catch (SQLException e) {
@@ -86,7 +87,7 @@ public class ClasesGrupales {
             Connection conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3307/gimnasio", "davinci", "dam2davinci");
             Statement sentencia = conexion.createStatement();
 
-            sentencia.executeUpdate("DELETE FROM ClasesGrupales WHERE id_clase="+clase.getId);
+            sentencia.executeUpdate("DELETE FROM ClasesGrupales WHERE id_clase="+clase.getId());
         } catch (ClassNotFoundException cn) {
             cn.printStackTrace();
         } catch (SQLException e) {

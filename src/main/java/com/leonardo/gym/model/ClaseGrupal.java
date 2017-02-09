@@ -11,19 +11,18 @@ package com.leonardo.gym.model;
  */
 public class ClaseGrupal {
     private int id, aforo;
-    private String nombre, descripción;
+    private String nombre, descripcion;
     public ClaseGrupal() {
         id=0;
         aforo=0;
         nombre="";
-        descripción="";
+        descripcion="";
     }
-int aforo
-    public ClaseGrupal(int id, String nombre, String descripción, int aforo) {
+    public ClaseGrupal(int id, String nombre, String descripcion, int aforo) {
         this.id = id;
         this.aforo = aforo;
         this.nombre = nombre;
-        this.descripción = descripción;
+        this.descripcion = descripcion;
     }
 
     public int getId() {
@@ -50,12 +49,12 @@ int aforo
         this.nombre = nombre;
     }
 
-    public String getDescripción() {
-        return descripción;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripción(String descripción) {
-        this.descripción = descripción;
+    public void setDescripción(String descripcion) {
+        this.descripcion = descripcion;
     }
     
 }

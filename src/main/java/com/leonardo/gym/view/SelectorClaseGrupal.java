@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javafx.scene.control.Tab;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import com.leonardo.gym.model.ClaseGrupal;
 
 /**
  *
@@ -213,7 +214,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAñadirActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int dialogResult = JOptionPane.showConfirmDialog(null, "Esta seguro de borrar la clase" + tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString(), "ATENCION", JOptionPane.YES_NO_OPTION);
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Esta seguro de borrar la clase: " + tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString(), "ATENCION", JOptionPane.YES_NO_OPTION);
         if (dialogResult == JOptionPane.YES_OPTION) {
 
             int id, aforo, fila;
@@ -237,9 +238,9 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         nombre = tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString();
         descripcion = tabClases.getValueAt(tabClases.getSelectedRow(), 2).toString();
         aforo = tabClases.getValueAt(tabClases.getSelectedRow(), 3).toString();
-        ClaseGrupal claseupdate = new ClaseGrupal(id,nombre, descripcion, aforo);
+        ClaseGrupal claseupdate = new ClaseGrupal(Integer.parseInt(id),nombre, descripcion, Integer.parseInt(aforo));
         jclase1 = new ModificarClase(this, true);
-        jclase1.ActualizarTextos();
+        jclase1.ActualizarTextos(claseupdate);
         jclase1.setVisible(true);
     }//GEN-LAST:event_btnModificarActionPerformed
 
