@@ -313,9 +313,10 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         descripcion = tabClases.getValueAt(tabClases.getSelectedRow(), 2).toString();
         aforo = tabClases.getValueAt(tabClases.getSelectedRow(), 3).toString();
         ClaseGrupal claseupdate = new ClaseGrupal(Integer.parseInt(id),nombre, descripcion, Integer.parseInt(aforo));
-        jclase1 = new ModificarClase(this, true);
-        jclase1.ActualizarTextos(claseupdate);
-        jclase1.setVisible(true);
+        jclase = new AñadirClase(this, true);
+        jclase.ActualizarTextos(claseupdate);
+        jclase.setEsInsercion(false);
+        jclase.setVisible(true);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnAñadir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadir1ActionPerformed
@@ -386,6 +387,6 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     private javax.swing.JScrollPane tabHorarios;
     // End of variables declaration//GEN-END:variables
 AñadirClase jclase;
-    ModificarClase jclase1;
+   
     AñadirHorario jHorario;
 }
