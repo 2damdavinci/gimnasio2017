@@ -18,6 +18,16 @@ public class AñadirClase extends javax.swing.JDialog {
     ClasesGrupalesDAO clase = new ClasesGrupalesDAO();
     SelectorClaseGrupal p;
     ClaseGrupal claseinsert;
+    int id;
+    boolean esInsercion=true;
+
+    public boolean isEsInsercion() {
+        return esInsercion;
+    }
+
+    public void setEsInsercion(boolean esInsercion) {
+        this.esInsercion = esInsercion;
+    }
 
     /**
      * Creates new form AñadirClase
@@ -139,6 +149,7 @@ public class AñadirClase extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+      if(esInsercion){
         int aforo = 0;
         try {
             aforo = Integer.parseInt(txtAforo.getText());
@@ -150,7 +161,20 @@ public class AñadirClase extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "El aforo tiene que ser un número, no se admiten caracteres");
         }
 
-
+      }
+      else{
+          int aforo = 0;
+        System.out.println(txtADescripcion.getText());
+        try {
+            aforo = Integer.parseInt(txtAforo.getText());
+            claseinsert = new ClaseGrupal(id, txtNombre.getText(), txtADescripcion.getText(), aforo);
+            clase.ModificarClase(claseinsert);
+            p.RecargarTablaClase();
+            dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El aforo tiene que ser un número, no se admiten caracteres");
+        }
+      }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
@@ -194,7 +218,13 @@ public class AñadirClase extends javax.swing.JDialog {
             }
         });
     }
-
+  public void ActualizarTextos(ClaseGrupal clase) {
+        txtNombre.setText(clase.getNombre());
+        txtADescripcion.setText(clase.getDescripcion());
+        txtAforo.setText(String.valueOf(clase.getAforo()));
+        claseinsert=clase;
+        this.id=clase.getId();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCacelar;
