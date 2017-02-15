@@ -383,5 +383,4 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     private javax.swing.JScrollPane tabHorarios;
     // End of variables declaration//GEN-END:variables
 AñadirClase jclase;
-    ModificarClase jclase1;
 }
