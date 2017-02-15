@@ -5,8 +5,8 @@
  */
 package com.leonardo.gym.view;
 
-import com.leonardo.gym.dao.ClasesGrupales;
-import com.leonardo.gym.dao.HorariosClasesGrupales;
+import com.leonardo.gym.dao.ClasesGrupalesDAO;
+import com.leonardo.gym.dao.HorariosClasesGrupalesDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -29,8 +29,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
      */
     DefaultTableModel modelo,modelo1;
     ResultSet rs,rs1;
-    ClasesGrupales clase = new ClasesGrupales();
-    HorariosClasesGrupales horario = new HorariosClasesGrupales();
+    ClasesGrupalesDAO clase = new ClasesGrupalesDAO();
+    HorariosClasesGrupalesDAO horario = new HorariosClasesGrupalesDAO();
 
     public SelectorClaseGrupal() {
         initComponents();
@@ -241,12 +241,12 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAñadir1)
                         .addComponent(btnEliminar1)
-                        .addComponent(btnModificar1)))
+                        .addComponent(btnModificar1))
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tabHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

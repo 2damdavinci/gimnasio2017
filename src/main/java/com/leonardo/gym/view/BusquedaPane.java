@@ -5,7 +5,7 @@
  */
 package com.leonardo.gym.view;
 
-import com.leonardo.gym.dao.Clientes;
+import com.leonardo.gym.dao.ClientesDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.jdatepicker.JDatePicker;
+
 
 /**
  *
@@ -25,7 +25,7 @@ public class BusquedaPane extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
     ResultSet rs;
-    Clientes cliente = new Clientes();
+    ClientesDAO cliente = new ClientesDAO();
 
     /**
      * Creates new form BusquedaPane

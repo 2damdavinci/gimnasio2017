@@ -5,7 +5,7 @@
  */
 package com.leonardo.gym.view;
 
-import com.leonardo.gym.dao.ClasesGrupales;
+import com.leonardo.gym.dao.ClasesGrupalesDAO;
 import com.leonardo.gym.model.ClaseGrupal;
 import javax.swing.JOptionPane;
 
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class AñadirClase extends javax.swing.JDialog {
 
-    ClasesGrupales clase = new ClasesGrupales();
+    ClasesGrupalesDAO clase = new ClasesGrupalesDAO();
     SelectorClaseGrupal p;
     ClaseGrupal claseinsert;
 

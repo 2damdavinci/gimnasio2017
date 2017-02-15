@@ -15,11 +15,11 @@ import java.sql.Statement;
  *
  * @author Gabri
  */
-public class Clientes {
+public class ClientesDAO {
 
     ResultSet rs;
 
-    public Clientes() {
+    public ClientesDAO() {
 
     }
 
