@@ -5,6 +5,10 @@
  */
 package com.leonardo.gym.view;
 
+import com.leonardo.gym.dao.HorariosClasesGrupalesDAO;
+import com.leonardo.gym.model.ClaseGrupal;
+import com.leonardo.gym.model.HorarioClaseGrupal;
+
 /**
  *
  * @author Gabri
@@ -14,11 +18,26 @@ public class AñadirHorario extends javax.swing.JDialog {
     /**
      * Creates new form AñadirHorario
      */
+    HorariosClasesGrupalesDAO horario = new HorariosClasesGrupalesDAO();
+    SelectorClaseGrupal p;
+    HorarioClaseGrupal horarioInsert;
+    ClaseGrupal clase;
+
+
+
     public AñadirHorario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        p = (SelectorClaseGrupal) parent;
+        
         initComponents();
     }
+    public ClaseGrupal getClase() {
+        return clase;
+    }
 
+    public void setClase(ClaseGrupal clase) {
+        this.clase = clase;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,13 +49,13 @@ public class AñadirHorario extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        txtProfesor = new javax.swing.JTextField();
         lblDescripcion = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
         btnCacelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        jSpinner1 = new javax.swing.JSpinner();
+        dateFecha = new org.jdesktop.swingx.JXDatePicker();
+        spnHora = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -57,7 +76,7 @@ public class AñadirHorario extends javax.swing.JDialog {
 
         jLabel1.setText("Hora:");
 
-        jSpinner1.setModel(new javax.swing.SpinnerListModel(new String[] {"9:00", "10:00", "11:00", "12:00", "13:00", "17:00", "18:00", "19:00", "20:00", "21:00"}));
+        spnHora.setModel(new javax.swing.SpinnerListModel(new String[] {"9:00", "10:00", "11:00", "12:00", "13:00", "17:00", "18:00", "19:00", "20:00", "21:00"}));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -78,13 +97,13 @@ public class AñadirHorario extends javax.swing.JDialog {
                             .addComponent(lblNombre))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(jLabel1)
                         .addGap(12, 12, 12)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(spnHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -93,15 +112,15 @@ public class AñadirHorario extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNombre)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDescripcion)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
@@ -130,7 +149,12 @@ public class AñadirHorario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-       
+        System.out.println(clase.getId());
+            horarioInsert = new HorarioClaseGrupal(0,clase.getId(),0,txtProfesor.getText(),dateFecha.getDate(),spnHora.getValue().toString() );
+            horario.AñadirHorario(horarioInsert);
+            p.RecargarTablaHorarios(clase);
+            dispose();
+      
 
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -179,12 +203,12 @@ public class AñadirHorario extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCacelar;
+    private org.jdesktop.swingx.JXDatePicker dateFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner jSpinner1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblNombre;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JSpinner spnHora;
+    private javax.swing.JTextField txtProfesor;
     // End of variables declaration//GEN-END:variables
 }

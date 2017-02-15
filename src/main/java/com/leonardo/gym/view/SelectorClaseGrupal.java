@@ -31,6 +31,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     ResultSet rs,rs1;
     ClasesGrupalesDAO clase = new ClasesGrupalesDAO();
     HorariosClasesGrupalesDAO horario = new HorariosClasesGrupalesDAO();
+    ClaseGrupal c;
 
     public SelectorClaseGrupal() {
         initComponents();
@@ -66,6 +67,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         }
     }
         public void RecargarTablaHorarios(ClaseGrupal clase) {
+            c=clase;
         for (int i = 0; i < tabHorario.getRowCount(); i++) {
             modelo1.removeRow(i);
             i -= 1;
@@ -317,7 +319,9 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnAñadir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadir1ActionPerformed
-        
+        jHorario = new AñadirHorario(this,true);
+        jHorario.setClase(c);
+        jHorario.setVisible(true);
     }//GEN-LAST:event_btnAñadir1ActionPerformed
 
     private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
@@ -383,4 +387,5 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 AñadirClase jclase;
     ModificarClase jclase1;
+    AñadirHorario jHorario;
 }

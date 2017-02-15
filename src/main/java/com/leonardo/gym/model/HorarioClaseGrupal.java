@@ -36,6 +36,7 @@ public class HorarioClaseGrupal {
         this.hora = hora;
     }
 
+
     public int getId() {
         return id;
     }
