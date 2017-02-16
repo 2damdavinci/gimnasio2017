@@ -6,6 +6,8 @@
 package com.leonardo.gym.view;
 
 import com.leonardo.gym.dao.ClientesDAO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -27,6 +29,41 @@ public class DetallesHorario extends javax.swing.JDialog {
     public DetallesHorario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        rs = cli.busquedaStringUsuariosSpinner();
+                       try {
+
+            while (rs.next()) {
+
+              cmbClientes.addItem(rs.getString("string"));
+            }
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(BusquedaPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                        cmbClientes.addActionListener (new ActionListener () {
+   
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean parent1=false,parent2=false;
+                String id="";
+               String cliente = cmbClientes.getSelectedItem().toString();
+               for(int i=0;i<cliente.length();i++){
+                   if(cliente.charAt(i)=='('){
+                       parent1=true;
+                       continue;
+                   }
+                   if(cliente.charAt(i)==')'){
+                       parent2=true;
+                       break;
+                   }
+                   if(parent1&&!parent2){
+                       id+=cliente.charAt(i);
+                   }
+               }
+               txtID.setText(String.valueOf(id));
+               buscar();
+            }
+        });
     }
 
     /**
@@ -49,11 +86,11 @@ public class DetallesHorario extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         btnAnadir = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbClientes = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -95,10 +132,10 @@ public class DetallesHorario extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText("Eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
 
@@ -162,7 +199,7 @@ public class DetallesHorario extends javax.swing.JDialog {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(btnAnadir)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jButton1)
+                                    .addComponent(btnEliminar)
                                     .addGap(17, 17, 17))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -176,7 +213,7 @@ public class DetallesHorario extends javax.swing.JDialog {
                                             .addComponent(btnBuscar))
                                         .addGroup(layout.createSequentialGroup()
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(cmbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
@@ -191,7 +228,7 @@ public class DetallesHorario extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,7 +242,7 @@ public class DetallesHorario extends javax.swing.JDialog {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAnadir)
-                    .addComponent(jButton1))
+                    .addComponent(btnEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
@@ -213,7 +250,7 @@ public class DetallesHorario extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jButton1.getAccessibleContext().setAccessibleName("btnEliminar");
+        btnEliminar.getAccessibleContext().setAccessibleName("btnEliminar");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -230,13 +267,16 @@ public class DetallesHorario extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAnadirActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
-        rs = cli.busquedaID(txtID.getText());
+        buscar();
+ 
+    }//GEN-LAST:event_btnBuscarActionPerformed
+    private void buscar(){
+               rs = cli.busquedaID(txtID.getText());
         
                 try {
 
@@ -252,8 +292,7 @@ public class DetallesHorario extends javax.swing.JDialog {
         } catch (SQLException ex) {
             Logger.getLogger(BusquedaPane.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
@@ -299,8 +338,8 @@ public class DetallesHorario extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnadir;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JComboBox<String> cmbClientes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
