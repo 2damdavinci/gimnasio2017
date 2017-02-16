@@ -91,6 +91,11 @@ public class AñadirHorario extends javax.swing.JDialog {
         });
 
         btnCacelar.setText("Cancelar");
+        btnCacelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCacelarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Hora:");
 
@@ -181,6 +186,11 @@ public class AñadirHorario extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCacelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCacelarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnCacelarActionPerformed
 
     /**
      * @param args the command line arguments

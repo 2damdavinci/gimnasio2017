@@ -42,6 +42,9 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         tabClases.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
+                    btnAñadir1.setEnabled(true);
+                    btnModificar1.setEnabled(true);
+                    btnEliminar1.setEnabled(true);
                     ClaseGrupal cl = new ClaseGrupal();
                     cl.setId(Integer.parseInt(tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString()));
                     cl.setNombre(tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString());
@@ -213,6 +216,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         tabHorarios.setViewportView(tabHorario);
 
         btnAñadir1.setText("Añadir");
+        btnAñadir1.setEnabled(false);
+        btnAñadir1.setFocusable(false);
         btnAñadir1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAñadir1ActionPerformed(evt);
@@ -220,6 +225,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         });
 
         btnEliminar1.setText("Eliminar");
+        btnEliminar1.setEnabled(false);
         btnEliminar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminar1ActionPerformed(evt);
@@ -227,6 +233,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         });
 
         btnModificar1.setText("Modificar");
+        btnModificar1.setEnabled(false);
         btnModificar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificar1ActionPerformed(evt);
@@ -319,6 +326,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+         if (tabClases.getSelectedRow() > -1) {
         String nombre, descripcion, aforo, id;
         id = tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString();
         nombre = tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString();
@@ -329,6 +337,10 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         jclase.ActualizarTextos(claseupdate);
         jclase.setEsInsercion(false);
         jclase.setVisible(true);
+         }
+         else {
+            JOptionPane.showMessageDialog(null, "Tiene que seleccionar la clase que desee modificar"); 
+         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnAñadir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadir1ActionPerformed
@@ -359,7 +371,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     private void btnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar1ActionPerformed
-              String profesor, fecha, hora, id;
+         if (tabHorario.getSelectedRow() > -1) {
+        String profesor, fecha, hora, id;
         id = tabHorario.getValueAt(tabHorario.getSelectedRow(), 0).toString();
         profesor = tabHorario.getValueAt(tabHorario.getSelectedRow(), 1).toString();
         fecha = tabHorario.getValueAt(tabHorario.getSelectedRow(), 2).toString();
@@ -374,6 +387,10 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         jHorario.setClase(c);
         jHorario.setEsInsercion(false);
         jHorario.setVisible(true);
+         }
+         else {
+             JOptionPane.showMessageDialog(null, "Tiene que seleccionar el horario que desee modificar");
+         }
     }//GEN-LAST:event_btnModificar1ActionPerformed
 
     /**

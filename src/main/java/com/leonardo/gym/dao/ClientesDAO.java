@@ -142,4 +142,20 @@ public class ClientesDAO {
         }
         return rs;
     }
+    public ResultSet busquedaStringUsuariosSpinner(){
+       try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3307/gimnasio", "davinci", "dam2davinci");
+            Statement sentencia = conexion.createStatement();
+
+            rs = sentencia.executeQuery("SELECT CONCAT (apellidos,',',nombre,' (',id_cliente,')') as string from Clientes order by apellidos;");
+            
+        } catch (ClassNotFoundException cn) {
+            cn.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs;
+    }
 }
