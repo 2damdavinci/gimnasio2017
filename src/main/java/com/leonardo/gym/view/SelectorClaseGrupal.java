@@ -15,6 +15,7 @@ import javafx.scene.control.Tab;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.leonardo.gym.model.ClaseGrupal;
+import com.leonardo.gym.model.HorarioClaseGrupal;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -27,8 +28,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     /**
      * Creates new form BuscadorClienteClaseGrupal
      */
-    DefaultTableModel modelo,modelo1;
-    ResultSet rs,rs1;
+    DefaultTableModel modelo, modelo1;
+    ResultSet rs, rs1;
     ClasesGrupalesDAO clase = new ClasesGrupalesDAO();
     HorariosClasesGrupalesDAO horario = new HorariosClasesGrupalesDAO();
     ClaseGrupal c;
@@ -36,10 +37,10 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     public SelectorClaseGrupal() {
         initComponents();
         modelo = (DefaultTableModel) tabClases.getModel();
-        modelo1= (DefaultTableModel) tabHorario.getModel();
+        modelo1 = (DefaultTableModel) tabHorario.getModel();
         tabClases.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e){
-                if(e.getClickCount()==2){
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
                     ClaseGrupal cl = new ClaseGrupal();
                     cl.setId(Integer.parseInt(tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString()));
                     cl.setNombre(tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString());
@@ -48,7 +49,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             }
 
         });
-      RecargarTablaClase();}
+        RecargarTablaClase();
+    }
 
     public void RecargarTablaClase() {
         for (int i = 0; i < tabClases.getRowCount(); i++) {
@@ -60,14 +62,15 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         try {
 
             while (rs.next()) {
-                modelo.addRow(new Object[]{rs.getInt("id_clase"),rs.getString("nombre"), rs.getString("descripcion"), rs.getInt("aforo")});
+                modelo.addRow(new Object[]{rs.getInt("id_clase"), rs.getString("nombre"), rs.getString("descripcion"), rs.getInt("aforo")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(SelectorClaseGrupal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        public void RecargarTablaHorarios(ClaseGrupal clase) {
-            c=clase;
+
+    public void RecargarTablaHorarios(ClaseGrupal clase) {
+        c = clase;
         for (int i = 0; i < tabHorario.getRowCount(); i++) {
             modelo1.removeRow(i);
             i -= 1;
@@ -77,7 +80,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         try {
 
             while (rs1.next()) {
-                modelo1.addRow(new Object[]{clase.getNombre(),rs1.getString("fecha"), rs1.getString("hora"), rs1.getInt("plazasLibres")});
+                modelo1.addRow(new Object[]{rs1.getInt("id_horario"), rs1.getString("profesor"), rs1.getString("fecha"), rs1.getString("hora"), rs1.getInt("plazasLibres")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(SelectorClaseGrupal.class.getName()).log(Level.SEVERE, null, ex);
@@ -195,7 +198,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Clase", "Fecha", "Hora", "Plazas libres"
+                "Identificador", "Profesor", "Fecha", "Hora", "Plazas libres"
             }
         ));
         tabHorarios.setViewportView(tabHorario);
@@ -284,35 +287,35 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAñadirActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       if(tabClases.getSelectedRow()>-1){
-        int dialogResult = JOptionPane.showConfirmDialog(null, "Esta seguro de borrar la clase: " + tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString(), "ATENCION", JOptionPane.YES_NO_OPTION);
-        if (dialogResult == JOptionPane.YES_OPTION) {
+        if (tabClases.getSelectedRow() > -1) {
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Esta seguro de borrar la clase: " + tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString(), "ATENCION", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
 
-            int id, aforo, fila;
-            String nombre, descripcion;
-            fila = tabClases.getSelectedRow();
-            id = Integer.parseInt(tabClases.getValueAt(fila, 0).toString());
-            nombre = tabClases.getValueAt(fila, 1).toString();
-            descripcion= tabClases.getValueAt(fila, 2).toString();
-            aforo = Integer.parseInt(tabClases.getValueAt(fila, 0).toString());
-            
-            ClaseGrupal clasedelete = new ClaseGrupal(id,nombre,descripcion,aforo);
+                int id, aforo, fila;
+                String nombre, descripcion;
+                fila = tabClases.getSelectedRow();
+                id = Integer.parseInt(tabClases.getValueAt(fila, 0).toString());
+                nombre = tabClases.getValueAt(fila, 1).toString();
+                descripcion = tabClases.getValueAt(fila, 2).toString();
+                aforo = Integer.parseInt(tabClases.getValueAt(fila, 0).toString());
 
-            clase.EliminarClase(clasedelete);
-            RecargarTablaClase();
+                ClaseGrupal clasedelete = new ClaseGrupal(id, nombre, descripcion, aforo);
+
+                clase.EliminarClase(clasedelete);
+                RecargarTablaClase();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Tiene que seleccionar la clase que desee eliminar");
         }
-       }else{
-           JOptionPane.showMessageDialog(null, "Tiene que seleccionar la clase que desee eliminar");
-       }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        String nombre, descripcion, aforo,id;
-        id=tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString();
+        String nombre, descripcion, aforo, id;
+        id = tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString();
         nombre = tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString();
         descripcion = tabClases.getValueAt(tabClases.getSelectedRow(), 2).toString();
         aforo = tabClases.getValueAt(tabClases.getSelectedRow(), 3).toString();
-        ClaseGrupal claseupdate = new ClaseGrupal(Integer.parseInt(id),nombre, descripcion, Integer.parseInt(aforo));
+        ClaseGrupal claseupdate = new ClaseGrupal(Integer.parseInt(id), nombre, descripcion, Integer.parseInt(aforo));
         jclase = new AñadirClase(this, true);
         jclase.ActualizarTextos(claseupdate);
         jclase.setEsInsercion(false);
@@ -320,13 +323,30 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnAñadir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadir1ActionPerformed
-        jHorario = new AñadirHorario(this,true);
+        jHorario = new AñadirHorario(this, true);
         jHorario.setClase(c);
         jHorario.setVisible(true);
     }//GEN-LAST:event_btnAñadir1ActionPerformed
 
     private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
-        // TODO add your handling code here:
+        if (tabHorario.getSelectedRow() > -1) {
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Esta seguro de borrar la clase con fecha: " + tabHorario.getValueAt(tabClases.getSelectedRow(), 2).toString(), "ATENCION", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+
+                int id, fila;
+
+                fila = tabHorario.getSelectedRow();
+                id = Integer.parseInt(tabHorario.getValueAt(fila, 0).toString());
+
+                HorarioClaseGrupal horariodelete = new HorarioClaseGrupal();
+                horariodelete.setId(id);
+
+                horario.EliminarHorario(horariodelete);
+                RecargarTablaHorarios(c);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Tiene que seleccionar el horario que desee eliminar");
+        }
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     private void btnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar1ActionPerformed
@@ -387,6 +407,6 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     private javax.swing.JScrollPane tabHorarios;
     // End of variables declaration//GEN-END:variables
 AñadirClase jclase;
-   
+
     AñadirHorario jHorario;
 }
