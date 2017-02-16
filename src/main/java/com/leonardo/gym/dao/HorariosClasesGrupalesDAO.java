@@ -86,7 +86,7 @@ public class HorariosClasesGrupalesDAO {
             Statement sentencia = conexion.createStatement();
                     
            
-            sentencia.executeUpdate("UPDATE HorarioClasesGrupales SET id_clase="+horario.getId_clase()+", profesor='"+horario.getProfesor()+"', fecha='"+horario.getFechaSQL()+"', plazasLibres='"+horario.getPlazaslibres()+"',hora='"+horario.getHora()+"' WHERE id_horario= "+horario.getId());
+            sentencia.executeUpdate("UPDATE HorarioClasesGrupales SET  profesor='"+horario.getProfesor()+"', fecha='"+horario.getFechaSQL()+"',hora='"+horario.getHora()+"' WHERE id_horario= "+horario.getId());
         } catch (ClassNotFoundException cn) {
             cn.printStackTrace();
         } catch (SQLException e) {

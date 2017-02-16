@@ -18,6 +18,7 @@ import com.leonardo.gym.model.ClaseGrupal;
 import com.leonardo.gym.model.HorarioClaseGrupal;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 
 /**
  *
@@ -200,7 +201,15 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             new String [] {
                 "Identificador", "Profesor", "Fecha", "Hora", "Plazas libres"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabHorarios.setViewportView(tabHorario);
 
         btnAñadir1.setText("Añadir");
@@ -340,7 +349,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
 
                 HorarioClaseGrupal horariodelete = new HorarioClaseGrupal();
                 horariodelete.setId(id);
-
+                
                 horario.EliminarHorario(horariodelete);
                 RecargarTablaHorarios(c);
             }
@@ -350,7 +359,21 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     private void btnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar1ActionPerformed
-        // TODO add your handling code here:
+              String profesor, fecha, hora, id;
+        id = tabHorario.getValueAt(tabHorario.getSelectedRow(), 0).toString();
+        profesor = tabHorario.getValueAt(tabHorario.getSelectedRow(), 1).toString();
+        fecha = tabHorario.getValueAt(tabHorario.getSelectedRow(), 2).toString();
+        String aux[]=fecha.split("/");
+        fecha = aux[2]+"/"+aux[1]+"/"+aux[0];
+        hora = tabHorario.getValueAt(tabHorario.getSelectedRow(), 3).toString();
+        System.out.println(fecha);
+        System.out.println(new Date(fecha));
+        HorarioClaseGrupal horarioupdate = new HorarioClaseGrupal(Integer.parseInt(id),0, 0, profesor, new Date(fecha),hora);
+        jHorario = new AñadirHorario(this, true);
+        jHorario.actualizar(horarioupdate);
+        jHorario.setClase(c);
+        jHorario.setEsInsercion(false);
+        jHorario.setVisible(true);
     }//GEN-LAST:event_btnModificar1ActionPerformed
 
     /**

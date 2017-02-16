@@ -22,15 +22,16 @@ public class AñadirHorario extends javax.swing.JDialog {
     SelectorClaseGrupal p;
     HorarioClaseGrupal horarioInsert;
     ClaseGrupal clase;
-
-
+    int idHorario;
+    boolean esInsercion = true;
 
     public AñadirHorario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         p = (SelectorClaseGrupal) parent;
-        
+
         initComponents();
     }
+
     public ClaseGrupal getClase() {
         return clase;
     }
@@ -38,6 +39,23 @@ public class AñadirHorario extends javax.swing.JDialog {
     public void setClase(ClaseGrupal clase) {
         this.clase = clase;
     }
+
+    public boolean isEsInsercion() {
+        return esInsercion;
+    }
+
+    public void setEsInsercion(boolean esInsercion) {
+        this.esInsercion = esInsercion;
+    }
+
+    public void actualizar(HorarioClaseGrupal h) {
+
+        txtProfesor.setText(h.getProfesor());
+        dateFecha.setDate(h.getFecha());
+        spnHora.setValue(h.getHora());
+        idHorario=h.getId();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -149,12 +167,18 @@ public class AñadirHorario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        System.out.println(clase.getId());
-            horarioInsert = new HorarioClaseGrupal(0,clase.getId(),0,txtProfesor.getText(),dateFecha.getDate(),spnHora.getValue().toString() );
+        if (esInsercion) {
+
+            horarioInsert = new HorarioClaseGrupal(0, clase.getId(), 0, txtProfesor.getText(), dateFecha.getDate(), spnHora.getValue().toString());
             horario.AñadirHorario(horarioInsert);
             p.RecargarTablaHorarios(clase);
             dispose();
-      
+        } else {
+             horarioInsert = new HorarioClaseGrupal(idHorario, 0, 0, txtProfesor.getText(), dateFecha.getDate(), spnHora.getValue().toString());
+            horario.ModificarHorario(horarioInsert);
+            p.RecargarTablaHorarios(clase);
+            dispose();
+        }
 
     }//GEN-LAST:event_btnAceptarActionPerformed
 
