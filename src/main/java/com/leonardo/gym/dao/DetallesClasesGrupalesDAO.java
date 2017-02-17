@@ -48,7 +48,7 @@ public class DetallesClasesGrupalesDAO {
 
             Connection conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3307/gimnasio", "davinci", "dam2davinci");
             Statement sentencia = conexion.createStatement();
-            sentencia.executeUpdate("INSERT INTO DetallesClasesGrupales (id_horario, id_cliente, fechaHora) VALUES(" + detalle.getId_horario() + ", " + detalle.getId_cliente() + " '" + detalle.getFechaSQL() + "')");
+            sentencia.executeUpdate("INSERT INTO DetallesClasesGrupales (id_horario, id_cliente, fechaHora) VALUES(" + detalle.getId_horario() + ", " + detalle.getId_cliente() + ", '" + detalle.getFechaSQL() + "')");
         } catch (ClassNotFoundException cn) {
             cn.printStackTrace();
         } catch (SQLException e) {

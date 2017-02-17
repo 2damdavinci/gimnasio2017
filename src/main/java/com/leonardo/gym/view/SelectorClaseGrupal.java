@@ -68,7 +68,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                     JFrame frame = (JFrame) SwingUtilities.getRoot(component);
                    
                     jDetalle = new DetallesHorario(frame, true);
-                   // jDetalle.setDe(de);
+                    jDetalle.setDe(de);
+                    jDetalle.RecargarTablaDetalles();
                     jDetalle.setVisible(true);
                 }
             }

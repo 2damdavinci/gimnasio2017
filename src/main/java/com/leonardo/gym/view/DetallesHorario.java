@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -29,15 +30,15 @@ public class DetallesHorario extends javax.swing.JDialog {
     ClientesDAO cli = new ClientesDAO();
     DetallesClasesGrupalesDAO detalleDAO = new DetallesClasesGrupalesDAO();
     ResultSet rs,rs1;
-    
+    int id_cliente;
     DetalleClasesGrupales de;
     DefaultTableModel modelo;
     public DetallesHorario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        System.out.println(de.getId_horario());
+        
         modelo = (DefaultTableModel) tabClientes.getModel();
-        //RecargarTablaDetalles();
+       
         rs = cli.busquedaStringUsuariosSpinner();
                        try {
 
@@ -87,7 +88,7 @@ public class DetallesHorario extends javax.swing.JDialog {
             while (rs.next()) {
                 rs1 = cli.busquedaID(Integer.toString(rs.getInt("id_cliente")));
                 rs1.first();
-                modelo.addRow(new Object[]{rs.getInt("id_detalle"), rs1.getString("nombre"), rs.getString("fecha_hora")});
+                modelo.addRow(new Object[]{rs.getInt("id_detalle"), rs1.getString("nombre"), rs.getString("fechaHora")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(SelectorClaseGrupal.class.getName()).log(Level.SEVERE, null, ex);
@@ -299,7 +300,10 @@ public class DetallesHorario extends javax.swing.JDialog {
     }//GEN-LAST:event_txtDirecciónActionPerformed
 
     private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
-        // TODO add your handling code here:
+        de.setFecha_hora(new Date());
+        de.setId_cliente(id_cliente);
+        detalleDAO.AñadirDetalle(de);
+        RecargarTablaDetalles();
     }//GEN-LAST:event_btnAnadirActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -312,11 +316,11 @@ public class DetallesHorario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
     private void buscar(){
                rs = cli.busquedaID(txtID.getText());
-        
+               
                 try {
 
             while (rs.next()) {
-
+                id_cliente = rs.getInt("id_cliente");
                 txtNombre.setText(rs.getString("apellidos")+", "+rs.getString("nombre"));
                 txtNIF.setText(rs.getString("nif"));
                 txtDirección.setText(rs.getString("domicilio"));
