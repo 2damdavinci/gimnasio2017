@@ -15,10 +15,14 @@ import javafx.scene.control.Tab;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.leonardo.gym.model.ClaseGrupal;
+import com.leonardo.gym.model.DetalleClasesGrupales;
 import com.leonardo.gym.model.HorarioClaseGrupal;
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -49,6 +53,23 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                     cl.setId(Integer.parseInt(tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString()));
                     cl.setNombre(tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString());
                     RecargarTablaHorarios(cl);
+                }
+            }
+
+        });
+        tabHorario.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+
+                    DetalleClasesGrupales de = new DetalleClasesGrupales();
+                    de.setId_horario(Integer.parseInt(tabHorario.getValueAt(tabHorario.getSelectedRow(), 0).toString()));
+                    //System.out.println(de.getId_horario());
+                     Component component = (Component) e.getSource();
+                    JFrame frame = (JFrame) SwingUtilities.getRoot(component);
+                   
+                    jDetalle = new DetallesHorario(frame, true);
+                   // jDetalle.setDe(de);
+                    jDetalle.setVisible(true);
                 }
             }
 
@@ -326,21 +347,20 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-         if (tabClases.getSelectedRow() > -1) {
-        String nombre, descripcion, aforo, id;
-        id = tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString();
-        nombre = tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString();
-        descripcion = tabClases.getValueAt(tabClases.getSelectedRow(), 2).toString();
-        aforo = tabClases.getValueAt(tabClases.getSelectedRow(), 3).toString();
-        ClaseGrupal claseupdate = new ClaseGrupal(Integer.parseInt(id), nombre, descripcion, Integer.parseInt(aforo));
-        jclase = new AñadirClase(this, true);
-        jclase.ActualizarTextos(claseupdate);
-        jclase.setEsInsercion(false);
-        jclase.setVisible(true);
-         }
-         else {
-            JOptionPane.showMessageDialog(null, "Tiene que seleccionar la clase que desee modificar"); 
-         }
+        if (tabClases.getSelectedRow() > -1) {
+            String nombre, descripcion, aforo, id;
+            id = tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString();
+            nombre = tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString();
+            descripcion = tabClases.getValueAt(tabClases.getSelectedRow(), 2).toString();
+            aforo = tabClases.getValueAt(tabClases.getSelectedRow(), 3).toString();
+            ClaseGrupal claseupdate = new ClaseGrupal(Integer.parseInt(id), nombre, descripcion, Integer.parseInt(aforo));
+            jclase = new AñadirClase(this, true);
+            jclase.ActualizarTextos(claseupdate);
+            jclase.setEsInsercion(false);
+            jclase.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Tiene que seleccionar la clase que desee modificar");
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnAñadir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadir1ActionPerformed
@@ -361,7 +381,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
 
                 HorarioClaseGrupal horariodelete = new HorarioClaseGrupal();
                 horariodelete.setId(id);
-                
+
                 horario.EliminarHorario(horariodelete);
                 RecargarTablaHorarios(c);
             }
@@ -371,26 +391,25 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     private void btnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar1ActionPerformed
-         if (tabHorario.getSelectedRow() > -1) {
-        String profesor, fecha, hora, id;
-        id = tabHorario.getValueAt(tabHorario.getSelectedRow(), 0).toString();
-        profesor = tabHorario.getValueAt(tabHorario.getSelectedRow(), 1).toString();
-        fecha = tabHorario.getValueAt(tabHorario.getSelectedRow(), 2).toString();
-        String aux[]=fecha.split("/");
-        fecha = aux[2]+"/"+aux[1]+"/"+aux[0];
-        hora = tabHorario.getValueAt(tabHorario.getSelectedRow(), 3).toString();
-        System.out.println(fecha);
-        System.out.println(new Date(fecha));
-        HorarioClaseGrupal horarioupdate = new HorarioClaseGrupal(Integer.parseInt(id),0, 0, profesor, new Date(fecha),hora);
-        jHorario = new AñadirHorario(this, true);
-        jHorario.actualizar(horarioupdate);
-        jHorario.setClase(c);
-        jHorario.setEsInsercion(false);
-        jHorario.setVisible(true);
-         }
-         else {
-             JOptionPane.showMessageDialog(null, "Tiene que seleccionar el horario que desee modificar");
-         }
+        if (tabHorario.getSelectedRow() > -1) {
+            String profesor, fecha, hora, id;
+            id = tabHorario.getValueAt(tabHorario.getSelectedRow(), 0).toString();
+            profesor = tabHorario.getValueAt(tabHorario.getSelectedRow(), 1).toString();
+            fecha = tabHorario.getValueAt(tabHorario.getSelectedRow(), 2).toString();
+            String aux[] = fecha.split("/");
+            fecha = aux[2] + "/" + aux[1] + "/" + aux[0];
+            hora = tabHorario.getValueAt(tabHorario.getSelectedRow(), 3).toString();
+            System.out.println(fecha);
+            System.out.println(new Date(fecha));
+            HorarioClaseGrupal horarioupdate = new HorarioClaseGrupal(Integer.parseInt(id), 0, 0, profesor, new Date(fecha), hora);
+            jHorario = new AñadirHorario(this, true);
+            jHorario.actualizar(horarioupdate);
+            jHorario.setClase(c);
+            jHorario.setEsInsercion(false);
+            jHorario.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Tiene que seleccionar el horario que desee modificar");
+        }
     }//GEN-LAST:event_btnModificar1ActionPerformed
 
     /**
@@ -446,7 +465,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     private javax.swing.JTable tabHorario;
     private javax.swing.JScrollPane tabHorarios;
     // End of variables declaration//GEN-END:variables
-AñadirClase jclase;
-
+    AñadirClase jclase;
+    DetallesHorario jDetalle;
     AñadirHorario jHorario;
 }

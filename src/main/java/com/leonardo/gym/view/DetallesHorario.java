@@ -6,6 +6,8 @@
 package com.leonardo.gym.view;
 
 import com.leonardo.gym.dao.ClientesDAO;
+import com.leonardo.gym.dao.DetallesClasesGrupalesDAO;
+import com.leonardo.gym.model.DetalleClasesGrupales;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -13,6 +15,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,11 +27,17 @@ public class DetallesHorario extends javax.swing.JDialog {
      * Creates new form DetallesHorario
      */
     ClientesDAO cli = new ClientesDAO();
-    ResultSet rs;
+    DetallesClasesGrupalesDAO detalleDAO = new DetallesClasesGrupalesDAO();
+    ResultSet rs,rs1;
     
+    DetalleClasesGrupales de;
+    DefaultTableModel modelo;
     public DetallesHorario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        System.out.println(de.getId_horario());
+        modelo = (DefaultTableModel) tabClientes.getModel();
+        //RecargarTablaDetalles();
         rs = cli.busquedaStringUsuariosSpinner();
                        try {
 
@@ -65,6 +74,32 @@ public class DetallesHorario extends javax.swing.JDialog {
             }
         });
     }
+ public void RecargarTablaDetalles() {
+        
+        for (int i = 0; i < tabClientes.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i -= 1;
+        }
+        rs = detalleDAO.ReturnDetalleHorario(de);
+
+        try {
+
+            while (rs.next()) {
+                rs1 = cli.busquedaID(Integer.toString(rs.getInt("id_cliente")));
+                rs1.first();
+                modelo.addRow(new Object[]{rs.getInt("id_detalle"), rs1.getString("nombre"), rs.getString("fecha_hora")});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SelectorClaseGrupal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public DetalleClasesGrupales getDe() {
+        return de;
+    }
+
+    public void setDe(DetalleClasesGrupales de) {
+        this.de = de;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -88,7 +123,7 @@ public class DetallesHorario extends javax.swing.JDialog {
         btnAnadir = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabClientes = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         cmbClientes = new javax.swing.JComboBox<>();
 
@@ -139,7 +174,7 @@ public class DetallesHorario extends javax.swing.JDialog {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -147,7 +182,7 @@ public class DetallesHorario extends javax.swing.JDialog {
                 {null, null, null}
             },
             new String [] {
-                "ID_Usuario", "Nombre", "Fecha Inscripción"
+                "Identificador Reserva", "Nombre", "Fecha Inscripción"
             }
         ) {
             Class[] types = new Class [] {
@@ -165,7 +200,7 @@ public class DetallesHorario extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabClientes);
 
         jLabel3.setText("Clientes");
 
@@ -345,9 +380,9 @@ public class DetallesHorario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblNIF;
+    private javax.swing.JTable tabClientes;
     private javax.swing.JTextField txtDirección;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNIF;

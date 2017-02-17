@@ -5,6 +5,8 @@
  */
 package com.leonardo.gym.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -57,6 +59,10 @@ public class DetalleClasesGrupales {
 
     public void setFecha_hora(Date fecha_hora) {
         this.fecha_hora = fecha_hora;
+    }
+    public String getFechaSQL() {
+         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(fecha_hora);
     }
     
 }
