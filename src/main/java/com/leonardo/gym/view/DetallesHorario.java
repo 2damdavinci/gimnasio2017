@@ -29,54 +29,56 @@ public class DetallesHorario extends javax.swing.JDialog {
      */
     ClientesDAO cli = new ClientesDAO();
     DetallesClasesGrupalesDAO detalleDAO = new DetallesClasesGrupalesDAO();
-    ResultSet rs,rs1;
+    ResultSet rs, rs1;
     int id_cliente;
     DetalleClasesGrupales de;
     DefaultTableModel modelo;
+
     public DetallesHorario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         modelo = (DefaultTableModel) tabClientes.getModel();
-       
+
         rs = cli.busquedaStringUsuariosSpinner();
-                       try {
+        try {
 
             while (rs.next()) {
 
-              cmbClientes.addItem(rs.getString("string"));
+                cmbClientes.addItem(rs.getString("string"));
             }
-           
+
         } catch (SQLException ex) {
             Logger.getLogger(BusquedaPane.class.getName()).log(Level.SEVERE, null, ex);
         }
-                        cmbClientes.addActionListener (new ActionListener () {
-   
+        cmbClientes.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean parent1=false,parent2=false;
-                String id="";
-               String cliente = cmbClientes.getSelectedItem().toString();
-               for(int i=0;i<cliente.length();i++){
-                   if(cliente.charAt(i)=='('){
-                       parent1=true;
-                       continue;
-                   }
-                   if(cliente.charAt(i)==')'){
-                       parent2=true;
-                       break;
-                   }
-                   if(parent1&&!parent2){
-                       id+=cliente.charAt(i);
-                   }
-               }
-               txtID.setText(String.valueOf(id));
-               buscar();
+                boolean parent1 = false, parent2 = false;
+                String id = "";
+                String cliente = cmbClientes.getSelectedItem().toString();
+                for (int i = 0; i < cliente.length(); i++) {
+                    if (cliente.charAt(i) == '(') {
+                        parent1 = true;
+                        continue;
+                    }
+                    if (cliente.charAt(i) == ')') {
+                        parent2 = true;
+                        break;
+                    }
+                    if (parent1 && !parent2) {
+                        id += cliente.charAt(i);
+                    }
+                }
+                txtID.setText(String.valueOf(id));
+                buscar();
             }
         });
     }
- public void RecargarTablaDetalles() {
-        
+
+    public void RecargarTablaDetalles() {
+
         for (int i = 0; i < tabClientes.getRowCount(); i++) {
             modelo.removeRow(i);
             i -= 1;
@@ -94,6 +96,7 @@ public class DetallesHorario extends javax.swing.JDialog {
             Logger.getLogger(SelectorClaseGrupal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public DetalleClasesGrupales getDe() {
         return de;
     }
@@ -307,21 +310,33 @@ public class DetallesHorario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAnadirActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        if (tabClientes.getSelectedRow() > -1) {
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Esta seguro de borrar la reserva del cliente: " + tabClientes.getValueAt(tabClientes.getSelectedRow(), 1).toString(), "ATENCION", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+
+                DetalleClasesGrupales detalleEliminar = new DetalleClasesGrupales();
+                detalleEliminar.setId_detalle(Integer.parseInt(tabClientes.getValueAt(tabClientes.getSelectedRow(), 0).toString()));
+                detalleDAO.EliminarDetalle(detalleEliminar);
+                RecargarTablaDetalles();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Tiene que seleccionar la clase que desee eliminar");
+        }
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         buscar();
- 
+
     }//GEN-LAST:event_btnBuscarActionPerformed
-    private void buscar(){
-               rs = cli.busquedaID(txtID.getText());
-               
-                try {
+    private void buscar() {
+        rs = cli.busquedaID(txtID.getText());
+
+        try {
 
             while (rs.next()) {
                 id_cliente = rs.getInt("id_cliente");
-                txtNombre.setText(rs.getString("apellidos")+", "+rs.getString("nombre"));
+                txtNombre.setText(rs.getString("apellidos") + ", " + rs.getString("nombre"));
                 txtNIF.setText(rs.getString("nif"));
                 txtDirección.setText(rs.getString("domicilio"));
             }
@@ -332,6 +347,7 @@ public class DetallesHorario extends javax.swing.JDialog {
             Logger.getLogger(BusquedaPane.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * @param args the command line arguments
      */
