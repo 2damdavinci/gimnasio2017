@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subinformeAlumnos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="831c9e9d-a310-46e4-924c-8e8d240512c9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ID_HORARIO" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[Select * from DetallesClasesGrupales as de join Clientes as cli on de.id_cliente=cli.id_cliente where id_horario=$P{ID_HORARIO}]]>
+	</queryString>
+	<field name="id_detalle" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_horario" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_cliente" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaHora" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apellidos" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nif" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="localidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="domicilio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cp" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="genero" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_nacimiento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefono_fijo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefono_movil" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="imagen" class="java.lang.Object">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observaciones" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="NUM_ALUMNOS" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{id_cliente}]]></variableExpression>
+	</variable>
+	<group name="Grupo Clientes">
+		<groupExpression><![CDATA[$F{id_horario}]]></groupExpression>
+		<groupHeader>
+			<band height="58">
+				<staticText>
+					<reportElement x="24" y="30" width="43" height="20" uuid="7d47b276-2018-4306-b35f-1cb55885c643"/>
+					<text><![CDATA[Nombre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="152" y="30" width="48" height="20" uuid="208f1ca1-8bc9-44d5-9873-66bb38593a4e"/>
+					<text><![CDATA[Apellidos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="281" y="30" width="77" height="20" uuid="f31d193e-2109-45ad-ab3f-74d7b3c49e58"/>
+					<text><![CDATA[Telefono Movil]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="411" y="30" width="100" height="20" uuid="d81d323b-cc9c-4faf-aaea-abd6a2e51477"/>
+					<text><![CDATA[Email]]></text>
+				</staticText>
+				<line>
+					<reportElement x="14" y="50" width="514" height="2" uuid="90a30bda-74f6-438b-80d7-ac15a32d0def"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<staticText>
+					<reportElement x="322" y="19" width="89" height="20" uuid="c103a22b-b387-4d54-9415-cf0a0521ae7f"/>
+					<text><![CDATA[Numero Alumnos:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="411" y="19" width="100" height="20" uuid="1c10fe57-59ed-4751-a345-75dd73998558"/>
+					<textFieldExpression><![CDATA[$V{NUM_ALUMNOS}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="24" y="0" width="116" height="20" isPrintWhenDetailOverflows="true" uuid="b4d27e6b-9b33-4a16-8a43-5569877461a6"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="152" y="0" width="129" height="20" isPrintWhenDetailOverflows="true" uuid="970b1d5a-da14-40b3-85c3-171bc0dc0d1c"/>
+				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="281" y="0" width="130" height="20" isPrintWhenDetailOverflows="true" uuid="c48833cf-2136-4c7b-9930-2f43af15f26c"/>
+				<textFieldExpression><![CDATA[$F{telefono_movil}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="411" y="0" width="144" height="20" isPrintWhenDetailOverflows="true" uuid="569397aa-9749-4ccc-b14d-c226edcae5c2"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

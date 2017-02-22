@@ -17,12 +17,25 @@ import javax.swing.table.DefaultTableModel;
 import com.leonardo.gym.model.ClaseGrupal;
 import com.leonardo.gym.model.DetalleClasesGrupales;
 import com.leonardo.gym.model.HorarioClaseGrupal;
+import com.mysql.jdbc.Connection;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.sql.DriverManager;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -38,6 +51,11 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     ClasesGrupalesDAO clase = new ClasesGrupalesDAO();
     HorariosClasesGrupalesDAO horario = new HorariosClasesGrupalesDAO();
     ClaseGrupal c;
+    String reportSource = "./src/main\\java\\com\\leonardo\\gym/informes/informeClasesGrupales.jrxml";
+    
+    Map parametros = new HashMap();
+    JasperReport reporte;
+    String ruta;
 
     public SelectorClaseGrupal() {
         initComponents();
@@ -49,6 +67,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                     btnAñadir1.setEnabled(true);
                     btnModificar1.setEnabled(true);
                     btnEliminar1.setEnabled(true);
+                    btnInforme2.setEnabled(true);
                     ClaseGrupal cl = new ClaseGrupal();
                     cl.setId(Integer.parseInt(tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString()));
                     cl.setNombre(tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString());
@@ -62,11 +81,11 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                 if (e.getClickCount() == 2) {
 
                     DetalleClasesGrupales de = new DetalleClasesGrupales();
-                    de.setId_horario(Integer.parseInt(tabHorario.getValueAt(tabHorario.getSelectedRow(), 0).toString()));
+                    de.setId_horario(Integer.parseInt((tabHorario.getValueAt(tabHorario.getSelectedRow(), 0)).toString()));
                     //System.out.println(de.getId_horario());
-                     Component component = (Component) e.getSource();
+                    Component component = (Component) e.getSource();
                     JFrame frame = (JFrame) SwingUtilities.getRoot(component);
-                   
+
                     jDetalle = new DetallesHorario(frame, true);
                     jDetalle.setDe(de);
                     jDetalle.RecargarTablaDetalles();
@@ -129,6 +148,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         btnAñadir = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
+        btnInforme = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tabHorarios = new javax.swing.JScrollPane();
@@ -136,6 +156,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         btnAñadir1 = new javax.swing.JButton();
         btnEliminar1 = new javax.swing.JButton();
         btnModificar1 = new javax.swing.JButton();
+        btnInforme2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -183,35 +204,47 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             }
         });
 
+        btnInforme.setText("Generar Informe");
+        btnInforme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInformeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(btnAñadir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnModificar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 10, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnAñadir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnInforme)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
+                .addGap(7, 7, 7)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
                     .addComponent(btnAñadir)
                     .addComponent(btnEliminar)
-                    .addComponent(btnModificar))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnModificar)
+                    .addComponent(btnInforme))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -262,6 +295,9 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             }
         });
 
+        btnInforme2.setText("Generar Informe");
+        btnInforme2.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -269,29 +305,31 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(tabHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(29, 29, 29)
                         .addComponent(btnAñadir1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEliminar1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar1))
-                    .addComponent(tabHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnModificar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnInforme2)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAñadir1)
-                        .addComponent(btnEliminar1)
-                        .addComponent(btnModificar1))
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tabHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAñadir1)
+                    .addComponent(btnEliminar1)
+                    .addComponent(btnModificar1)
+                    .addComponent(btnInforme2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(tabHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -310,10 +348,10 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -413,6 +451,31 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnModificar1ActionPerformed
 
+    private void btnInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeActionPerformed
+   
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            java.sql.Connection conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3307/gimnasio", "davinci", "dam2davinci");
+
+            parametros.put("ID_CLASE", Long.parseLong(tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString()));
+
+            reporte = (JasperReport) JasperCompileManager.compileReport(reportSource);
+
+            JasperPrint miInforme = JasperFillManager.fillReport(reporte, parametros, conexion);
+
+            JasperViewer.viewReport(miInforme,false);
+            
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("error driver");
+        } catch (SQLException e) {
+            System.out.println("Error sentencia SQL");
+        } catch (JRException ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_btnInformeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -455,6 +518,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     private javax.swing.JButton btnAñadir1;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminar1;
+    private javax.swing.JButton btnInforme;
+    private javax.swing.JButton btnInforme2;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnModificar1;
     private javax.swing.JLabel jLabel1;
