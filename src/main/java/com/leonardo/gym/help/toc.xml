@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toc version="1.0">
+<tocitem text="Gestión de clases grupales" target="aplicacion">
+<tocitem text="Clases Grupales" target="clases_grupales"/>
+<tocitem text="Horarios Clases Grupales" target="horarios_clases_grupales"/>
+<tocitem text="Detalles Clases Grupales" target="detalles_clases_grupales"/>
+</tocitem>
+</toc>
