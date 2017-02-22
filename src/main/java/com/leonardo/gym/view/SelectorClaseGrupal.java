@@ -51,8 +51,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     ClasesGrupalesDAO clase = new ClasesGrupalesDAO();
     HorariosClasesGrupalesDAO horario = new HorariosClasesGrupalesDAO();
     ClaseGrupal c;
-    String reportSource = "./src/main\\java\\com\\leonardo\\gym/informes/informeClasesGrupales.jrxml";
-    
+    String reportSource = "./src/main/java/com/leonardo/gym/informes/informeClasesGrupales.jrxml";
+    String reportSource1 = "./src/main/java/com/leonardo/gym/informes/informeHorarios.jrxml";
     Map parametros = new HashMap();
     JasperReport reporte;
     String ruta;
@@ -297,6 +297,11 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
 
         btnInforme2.setText("Generar Informe");
         btnInforme2.setEnabled(false);
+        btnInforme2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInforme2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -452,7 +457,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificar1ActionPerformed
 
     private void btnInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeActionPerformed
-   
+   if (tabClases.getSelectedRow() > -1) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -473,8 +478,37 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             System.out.println("Error sentencia SQL");
         } catch (JRException ex) {
             System.out.println(ex);
+        }} else {
+              JOptionPane.showMessageDialog(null, "Tiene que seleccionar una clase");
         }
     }//GEN-LAST:event_btnInformeActionPerformed
+
+    private void btnInforme2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInforme2ActionPerformed
+          if (tabHorario.getSelectedRow() > -1) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            java.sql.Connection conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3307/gimnasio", "davinci", "dam2davinci");
+
+            parametros.put("ID_HORARIO", Long.parseLong(tabClases.getValueAt(tabHorario.getSelectedRow(), 0).toString()));
+
+            reporte = (JasperReport) JasperCompileManager.compileReport(reportSource1);
+
+            JasperPrint miInforme = JasperFillManager.fillReport(reporte, parametros, conexion);
+
+            JasperViewer.viewReport(miInforme,false);
+            
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("error driver");
+        } catch (SQLException e) {
+            System.out.println("Error sentencia SQL");
+        } catch (JRException ex) {
+            System.out.println(ex);
+        }} else {
+              JOptionPane.showMessageDialog(null, "Tiene que seleccionar un horario");
+        }
+    }//GEN-LAST:event_btnInforme2ActionPerformed
 
     /**
      * @param args the command line arguments

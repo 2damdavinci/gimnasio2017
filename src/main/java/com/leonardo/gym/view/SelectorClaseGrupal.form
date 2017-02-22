@@ -296,6 +296,9 @@
             <Property name="text" type="java.lang.String" value="Generar Informe"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInforme2ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
