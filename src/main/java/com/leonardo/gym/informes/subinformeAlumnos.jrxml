@@ -76,7 +76,7 @@
 					<text><![CDATA[Apellidos]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="281" y="30" width="77" height="20" uuid="f31d193e-2109-45ad-ab3f-74d7b3c49e58"/>
+					<reportElement x="298" y="30" width="77" height="20" uuid="f31d193e-2109-45ad-ab3f-74d7b3c49e58"/>
 					<text><![CDATA[Telefono Movil]]></text>
 				</staticText>
 				<staticText>
@@ -91,11 +91,11 @@
 		<groupFooter>
 			<band height="77">
 				<staticText>
-					<reportElement x="422" y="19" width="89" height="20" uuid="c103a22b-b387-4d54-9415-cf0a0521ae7f"/>
+					<reportElement x="439" y="18" width="89" height="20" uuid="c103a22b-b387-4d54-9415-cf0a0521ae7f"/>
 					<text><![CDATA[Numero Alumnos:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="511" y="19" width="37" height="20" uuid="1c10fe57-59ed-4751-a345-75dd73998558"/>
+					<reportElement x="528" y="18" width="37" height="20" uuid="1c10fe57-59ed-4751-a345-75dd73998558"/>
 					<textFieldExpression><![CDATA[$V{NUM_ALUMNOS}]]></textFieldExpression>
 				</textField>
 			</band>
@@ -111,11 +111,12 @@
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="152" y="0" width="129" height="20" isPrintWhenDetailOverflows="true" uuid="970b1d5a-da14-40b3-85c3-171bc0dc0d1c"/>
+				<reportElement x="152" y="0" width="110" height="20" isPrintWhenDetailOverflows="true" uuid="970b1d5a-da14-40b3-85c3-171bc0dc0d1c"/>
 				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="281" y="0" width="130" height="20" isPrintWhenDetailOverflows="true" uuid="c48833cf-2136-4c7b-9930-2f43af15f26c"/>
+				<reportElement x="281" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" uuid="c48833cf-2136-4c7b-9930-2f43af15f26c"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{telefono_movil}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">

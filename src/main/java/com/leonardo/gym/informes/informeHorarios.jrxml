@@ -14,7 +14,7 @@
 		<defaultValueExpression><![CDATA["C:\\Users\\Gabri\\Documents\\NetBeansProjects\\Tarea4Informes\\src\\Informes\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[Select * from HorarioClasesGrupales where id_horario=$P{ID_HORARIO}]]>
+		<![CDATA[Select ho.id_horario, ho.id_clase, ho.profesor, DATE_FORMAT(fecha,'%d/%m/%Y') as fecha, ho.plazasLibres, ho.hora, cla.id_clase, cla.nombre, cla.descripcion, cla.aforo from HorarioClasesGrupales as ho join ClasesGrupales as cla on ho.id_clase=cla.id_clase where id_horario=$P{ID_HORARIO}]]>
 	</queryString>
 	<field name="id_horario" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -25,53 +25,76 @@
 	<field name="profesor" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="fecha" class="java.sql.Timestamp">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="fecha" class="java.lang.String"/>
 	<field name="plazasLibres" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="hora" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="aforo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<group name="Group1">
 		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
 		<groupHeader>
-			<band height="53">
+			<band height="54">
 				<rectangle radius="10">
-					<reportElement mode="Opaque" x="5" y="17" width="548" height="36" forecolor="#CCCCCC" backcolor="#999999" uuid="0aba00d2-53a6-4bb3-99e0-e389e5905022"/>
+					<reportElement mode="Opaque" x="5" y="1" width="548" height="53" forecolor="#CCCCCC" backcolor="#999999" uuid="0aba00d2-53a6-4bb3-99e0-e389e5905022"/>
 				</rectangle>
 				<staticText>
-					<reportElement x="31" y="31" width="44" height="20" uuid="20bd8572-7b3e-449a-a653-cfdc1d5b7802"/>
+					<reportElement x="30" y="23" width="44" height="20" uuid="20bd8572-7b3e-449a-a653-cfdc1d5b7802"/>
 					<text><![CDATA[Profesor:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true">
-					<reportElement x="75" y="31" width="92" height="20" uuid="9488bdd7-9556-4b77-b2dc-f279b11b3597"/>
+					<reportElement x="74" y="23" width="108" height="20" uuid="9488bdd7-9556-4b77-b2dc-f279b11b3597"/>
 					<textFieldExpression><![CDATA[$F{profesor}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="167" y="31" width="38" height="20" uuid="3ceb2c9e-5740-416c-a06a-f9e646e11783"/>
+					<reportElement x="182" y="23" width="38" height="20" uuid="3ceb2c9e-5740-416c-a06a-f9e646e11783"/>
 					<text><![CDATA[Fecha:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true">
-					<reportElement x="205" y="31" width="100" height="20" uuid="04fe2654-26c1-4335-bfc3-c62856fb5680"/>
+					<reportElement x="220" y="23" width="100" height="20" uuid="04fe2654-26c1-4335-bfc3-c62856fb5680"/>
 					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="305" y="31" width="31" height="20" uuid="1a9fad27-855a-40e9-9fd5-ba518c0ba20a"/>
-					<text><![CDATA[Hora:]]></text>
-				</staticText>
 				<textField isStretchWithOverflow="true">
-					<reportElement x="336" y="31" width="56" height="20" uuid="3a7f1ddc-3af2-4b2e-ad9f-57f6cace7474"/>
+					<reportElement x="351" y="23" width="56" height="20" uuid="3a7f1ddc-3af2-4b2e-ad9f-57f6cace7474"/>
 					<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="392" y="31" width="67" height="20" uuid="590687bb-0ff1-4e51-898f-d622a7ea365d"/>
+					<reportElement x="407" y="23" width="67" height="20" uuid="590687bb-0ff1-4e51-898f-d622a7ea365d"/>
 					<text><![CDATA[Plazas Libres:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true">
-					<reportElement x="459" y="31" width="36" height="20" uuid="889e65e2-fe1b-4317-8937-4a730ce9ac32"/>
+					<reportElement x="474" y="23" width="36" height="20" uuid="889e65e2-fe1b-4317-8937-4a730ce9ac32"/>
 					<textFieldExpression><![CDATA[$F{plazasLibres}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="30" y="3" width="41" height="20" uuid="1a3b1859-a3ee-46c6-ab5d-b87fc27c71a3"/>
+					<text><![CDATA[Clase:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="182" y="3" width="67" height="20" uuid="3cc2ae5b-323c-4a26-8558-c9d4f3e167f1"/>
+					<text><![CDATA[Descripcion:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="249" y="3" width="261" height="20" uuid="87805634-e908-4aaa-b727-e21c7fd4929c"/>
+					<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="320" y="23" width="31" height="20" uuid="1a9fad27-855a-40e9-9fd5-ba518c0ba20a"/>
+					<text><![CDATA[Hora:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="74" y="1" width="108" height="20" uuid="9a574427-6f2a-4739-98c1-7abb28db3e84"/>
+					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -83,7 +106,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="146" splitType="Stretch">
+		<band height="151" splitType="Stretch">
 			<image scaleImage="FillFrame">
 				<reportElement x="5" y="0" width="548" height="146" uuid="3abef3a2-4083-4779-8344-0c371a64a64e"/>
 				<imageExpression><![CDATA["C:\\Users\\Gabri\\Documents\\NetBeansProjects\\Tarea4Informes\\src\\Informes\\LogoHorarios.png"]]></imageExpression>
@@ -93,7 +116,7 @@
 	<detail>
 		<band height="108" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="0" width="200" height="100" uuid="39ed4002-caa1-4770-a846-08432bea9eda"/>
+				<reportElement x="0" y="0" width="553" height="100" uuid="39ed4002-caa1-4770-a846-08432bea9eda"/>
 				<subreportParameter name="ID_HORARIO">
 					<subreportParameterExpression><![CDATA[$F{id_horario}]]></subreportParameterExpression>
 				</subreportParameter>

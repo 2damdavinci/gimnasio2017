@@ -30,7 +30,7 @@ public class DetallesClasesGrupalesDAO {
 
             Connection conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3307/gimnasio", "davinci", "dam2davinci");
             Statement sentencia = conexion.createStatement();
-            System.out.println("SELECT * FROM DetallesClasesGrupales where id_horario = " + detalle.getId_horario());
+            
             rs = sentencia.executeQuery("SELECT * FROM DetallesClasesGrupales where id_horario = " + detalle.getId_horario());
 
         } catch (ClassNotFoundException cn) {

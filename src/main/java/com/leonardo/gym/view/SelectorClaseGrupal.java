@@ -55,7 +55,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     ResultSet rs, rs1;
     ClasesGrupalesDAO clase = new ClasesGrupalesDAO();
     HorariosClasesGrupalesDAO horario = new HorariosClasesGrupalesDAO();
-    ClaseGrupal c;
+    ClaseGrupal c,cl;
     String reportSource = "./src/main/java/com/leonardo/gym/informes/informeClasesGrupales.jrxml";
     String reportSource1 = "./src/main/java/com/leonardo/gym/informes/informeHorarios.jrxml";
     Map parametros = new HashMap();
@@ -77,7 +77,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                     btnModificar1.setEnabled(true);
                     btnEliminar1.setEnabled(true);
                     btnInforme2.setEnabled(true);
-                    ClaseGrupal cl = new ClaseGrupal();
+                    cl = new ClaseGrupal();
                     cl.setId(Integer.parseInt(tabClases.getValueAt(tabClases.getSelectedRow(), 0).toString()));
                     cl.setNombre(tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString());
                     RecargarTablaHorarios(cl);
@@ -97,6 +97,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
 
                     jDetalle = new DetallesHorario(frame, true);
                     jDetalle.setDe(de);
+                    jDetalle.setCl(cl);
                     jDetalle.RecargarTablaDetalles();
                     jDetalle.setVisible(true);
                 }
@@ -195,6 +196,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             }
         });
         tabClases.setToolTipText("doble click para ver los horarios");
+        tabClases.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tabClases);
 
         btnAñadir.setText("Añadir");
@@ -282,6 +284,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabHorario.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabHorarios.setViewportView(tabHorario);
 
         btnAñadir1.setText("Añadir");

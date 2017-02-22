@@ -71,7 +71,8 @@
 				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="399" y="0" width="100" height="20" uuid="80ea58a4-3878-4c3a-bb42-5f14b5437026"/>
+				<reportElement x="399" y="0" width="68" height="20" uuid="80ea58a4-3878-4c3a-bb42-5f14b5437026"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{plazasLibres}]]></textFieldExpression>
 			</textField>
 		</band>

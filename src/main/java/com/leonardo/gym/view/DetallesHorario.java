@@ -7,6 +7,7 @@ package com.leonardo.gym.view;
 
 import com.leonardo.gym.dao.ClientesDAO;
 import com.leonardo.gym.dao.DetallesClasesGrupalesDAO;
+import com.leonardo.gym.model.ClaseGrupal;
 import com.leonardo.gym.model.DetalleClasesGrupales;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,11 +34,13 @@ public class DetallesHorario extends javax.swing.JDialog {
     int id_cliente;
     DetalleClasesGrupales de;
     DefaultTableModel modelo;
+    SelectorClaseGrupal clase;
+    ClaseGrupal cl;
 
     public DetallesHorario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
+        clase = (SelectorClaseGrupal)parent;
         modelo = (DefaultTableModel) tabClientes.getModel();
 
         rs = cli.busquedaStringUsuariosSpinner();
@@ -75,6 +78,14 @@ public class DetallesHorario extends javax.swing.JDialog {
                 buscar();
             }
         });
+    }
+
+    public ClaseGrupal getCl() {
+        return cl;
+    }
+
+    public void setCl(ClaseGrupal cl) {
+        this.cl = cl;
     }
 
     public void RecargarTablaDetalles() {
@@ -204,6 +215,7 @@ public class DetallesHorario extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tabClientes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tabClientes);
 
         jLabel3.setText("Clientes");
@@ -307,6 +319,7 @@ public class DetallesHorario extends javax.swing.JDialog {
         de.setId_cliente(id_cliente);
         detalleDAO.AñadirDetalle(de);
         RecargarTablaDetalles();
+        clase.RecargarTablaHorarios(cl);
     }//GEN-LAST:event_btnAnadirActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -318,6 +331,7 @@ public class DetallesHorario extends javax.swing.JDialog {
                 detalleEliminar.setId_detalle(Integer.parseInt(tabClientes.getValueAt(tabClientes.getSelectedRow(), 0).toString()));
                 detalleDAO.EliminarDetalle(detalleEliminar);
                 RecargarTablaDetalles();
+                clase.RecargarTablaHorarios(cl);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Tiene que seleccionar la clase que desee eliminar");
@@ -382,6 +396,7 @@ public class DetallesHorario extends javax.swing.JDialog {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
+                        
                         System.exit(0);
                     }
                 });

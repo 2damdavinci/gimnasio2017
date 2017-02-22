@@ -32,30 +32,31 @@
 		<groupHeader>
 			<band height="63">
 				<rectangle radius="10">
-					<reportElement mode="Opaque" x="0" y="16" width="553" height="47" forecolor="#CCCCCC" backcolor="#999999" uuid="97814a24-785b-4ed8-b2d9-322c8090174b"/>
+					<reportElement mode="Opaque" x="0" y="0" width="553" height="63" forecolor="#CCCCCC" backcolor="#999999" uuid="97814a24-785b-4ed8-b2d9-322c8090174b"/>
 				</rectangle>
 				<staticText>
-					<reportElement x="53" y="28" width="42" height="20" uuid="1f9c7d1b-b9d4-4d1d-911c-2a353e2015fb"/>
+					<reportElement x="47" y="8" width="42" height="20" uuid="1f9c7d1b-b9d4-4d1d-911c-2a353e2015fb"/>
 					<text><![CDATA[Nombre:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true">
-					<reportElement x="95" y="28" width="119" height="20" uuid="a5e2365d-d33b-48bc-89a6-aa7f020217db"/>
+					<reportElement x="89" y="8" width="152" height="20" uuid="a5e2365d-d33b-48bc-89a6-aa7f020217db"/>
 					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="241" y="28" width="36" height="20" uuid="4158574f-6c6a-474c-be4e-a122b18091f2"/>
+					<reportElement x="241" y="8" width="36" height="20" uuid="4158574f-6c6a-474c-be4e-a122b18091f2"/>
 					<text><![CDATA[Aforo:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true">
-					<reportElement x="277" y="28" width="55" height="20" uuid="44932418-c461-4171-b88e-345ce8697b91"/>
+					<reportElement x="277" y="8" width="27" height="20" uuid="44932418-c461-4171-b88e-345ce8697b91"/>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$F{aforo}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement x="409" y="28" width="104" height="20" isPrintWhenDetailOverflows="true" uuid="04a7428f-ddea-4829-b6e2-63302c39773b"/>
+					<reportElement x="109" y="28" width="404" height="20" isPrintWhenDetailOverflows="true" uuid="04a7428f-ddea-4829-b6e2-63302c39773b"/>
 					<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="347" y="28" width="62" height="20" uuid="3d752aec-e960-43c7-944d-d9d28957856c"/>
+					<reportElement x="47" y="28" width="62" height="20" uuid="3d752aec-e960-43c7-944d-d9d28957856c"/>
 					<text><![CDATA[Descripcion:]]></text>
 				</staticText>
 			</band>
