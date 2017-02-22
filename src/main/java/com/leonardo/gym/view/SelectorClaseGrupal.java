@@ -355,12 +355,18 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         jMenu1.setText("Archivo");
 
         mniSalir.setText("Salir");
+        mniSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniSalirActionPerformed(evt);
+            }
+        });
         jMenu1.add(mniSalir);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Ayuda");
 
+        mniTemasDeAyuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         mniTemasDeAyuda.setText("Temas de Ayuda");
         jMenu2.add(mniTemasDeAyuda);
 
@@ -540,6 +546,11 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(null, "Tiene que seleccionar un horario");
         }
     }//GEN-LAST:event_btnInforme2ActionPerformed
+
+    private void mniSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_mniSalirActionPerformed
 public void ayuda(){
     // Carga el fichero de ayuda
 
