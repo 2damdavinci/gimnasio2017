@@ -354,6 +354,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
+        mniSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         mniSalir.setText("Salir");
         mniSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
