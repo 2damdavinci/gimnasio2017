@@ -22,10 +22,15 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.DriverManager;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.help.HelpSetException;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -56,9 +61,13 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     Map parametros = new HashMap();
     JasperReport reporte;
     String ruta;
+    File fichero = new File("./src/main/java/com/leonardo/gym/help/help_set.hs");
+    URL hsURL;
+    HelpSet helpset;
 
     public SelectorClaseGrupal() {
         initComponents();
+        ayuda();
         modelo = (DefaultTableModel) tabClases.getModel();
         modelo1 = (DefaultTableModel) tabHorario.getModel();
         tabClases.addMouseListener(new MouseAdapter() {
@@ -157,6 +166,11 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         btnEliminar1 = new javax.swing.JButton();
         btnModificar1 = new javax.swing.JButton();
         btnInforme2 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        mniSalir = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        mniTemasDeAyuda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -333,10 +347,26 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                     .addComponent(btnEliminar1)
                     .addComponent(btnModificar1)
                     .addComponent(btnInforme2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tabHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jMenu1.setText("Archivo");
+
+        mniSalir.setText("Salir");
+        jMenu1.add(mniSalir);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Ayuda");
+
+        mniTemasDeAyuda.setText("Temas de Ayuda");
+        jMenu2.add(mniTemasDeAyuda);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -509,7 +539,26 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(null, "Tiene que seleccionar un horario");
         }
     }//GEN-LAST:event_btnInforme2ActionPerformed
+public void ayuda(){
+    // Carga el fichero de ayuda
 
+try {
+hsURL = fichero.toURI().toURL();
+try {
+// Crea el HelpSet y el HelpBroker
+helpset = new HelpSet(getClass().getClassLoader(), hsURL);
+HelpBroker hb = helpset.createHelpBroker();
+// Pone ayuda al botón y a F1 en la ventana.
+hb.enableHelpOnButton(mniTemasDeAyuda, "aplicacion", helpset);
+hb.enableHelpKey(this.getContentPane(), "aplicacion", helpset);
+} catch (HelpSetException ex) {
+    System.out.println("Error");
+}
+} catch (MalformedURLException ex) {
+    System.out.println("Error");
+}
+}
+        
     /**
      * @param args the command line arguments
      */
@@ -558,9 +607,14 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     private javax.swing.JButton btnModificar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem mniSalir;
+    private javax.swing.JMenuItem mniTemasDeAyuda;
     private javax.swing.JTable tabClases;
     private javax.swing.JTable tabHorario;
     private javax.swing.JScrollPane tabHorarios;
