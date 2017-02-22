@@ -489,8 +489,9 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
 
             java.sql.Connection conexion = DriverManager.getConnection("jdbc:mysql://db4free.net:3307/gimnasio", "davinci", "dam2davinci");
+            
 
-            parametros.put("ID_HORARIO", Long.parseLong(tabClases.getValueAt(tabHorario.getSelectedRow(), 0).toString()));
+            parametros.put("ID_HORARIO", Long.parseLong(tabHorario.getValueAt(tabHorario.getSelectedRow(), 0).toString()));
 
             reporte = (JasperReport) JasperCompileManager.compileReport(reportSource1);
 

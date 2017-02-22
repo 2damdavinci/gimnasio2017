@@ -89,13 +89,13 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="50">
+			<band height="77">
 				<staticText>
-					<reportElement x="322" y="19" width="89" height="20" uuid="c103a22b-b387-4d54-9415-cf0a0521ae7f"/>
+					<reportElement x="422" y="19" width="89" height="20" uuid="c103a22b-b387-4d54-9415-cf0a0521ae7f"/>
 					<text><![CDATA[Numero Alumnos:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="411" y="19" width="100" height="20" uuid="1c10fe57-59ed-4751-a345-75dd73998558"/>
+					<reportElement x="511" y="19" width="37" height="20" uuid="1c10fe57-59ed-4751-a345-75dd73998558"/>
 					<textFieldExpression><![CDATA[$V{NUM_ALUMNOS}]]></textFieldExpression>
 				</textField>
 			</band>
