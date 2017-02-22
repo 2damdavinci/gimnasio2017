@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE map
+PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 2.0//EN"
+"http://java.sun.com/products/javahelp/map_2_0.dtd">
+<map version="1.0">
+<mapID target="aplicacion" url="html/index.html" />
+<mapID target="clases_grupales" url="html/ClasesGrupales.html" />
+<mapID target="horarios_clases_grupales" url="html/HorarioClasesGrupales.html" />
+<mapID target="detalles_clases_grupales" url="html/DetallesClasesGrupales.html" />
+</map>
