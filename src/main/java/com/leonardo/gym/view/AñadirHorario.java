@@ -49,7 +49,7 @@ public class AñadirHorario extends javax.swing.JDialog {
     }
 
     public void actualizar(HorarioClaseGrupal h) {
-
+        
         txtProfesor.setText(h.getProfesor());
         dateFecha.setDate(h.getFecha());
         spnHora.setValue(h.getHora());

@@ -109,7 +109,7 @@
 		<band height="151" splitType="Stretch">
 			<image scaleImage="FillFrame">
 				<reportElement x="5" y="0" width="548" height="146" uuid="3abef3a2-4083-4779-8344-0c371a64a64e"/>
-				<imageExpression><![CDATA["C:\\Users\\Gabri\\Documents\\NetBeansProjects\\Tarea4Informes\\src\\Informes\\LogoHorarios.png"]]></imageExpression>
+				<imageExpression><![CDATA["./src/main/java/com/leonardo/gym/informes/LogoHorarios.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
