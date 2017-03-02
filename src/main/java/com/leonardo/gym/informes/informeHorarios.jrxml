@@ -11,7 +11,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Gabri\\Documents\\NetBeansProjects\\Tarea4Informes\\src\\Informes\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["./src/main/java/com/leonardo/gym/informes/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[Select ho.id_horario, ho.id_clase, ho.profesor, DATE_FORMAT(fecha,'%d/%m/%Y') as fecha, ho.plazasLibres, ho.hora, cla.id_clase, cla.nombre, cla.descripcion, cla.aforo from HorarioClasesGrupales as ho join ClasesGrupales as cla on ho.id_clase=cla.id_clase where id_horario=$P{ID_HORARIO}]]>

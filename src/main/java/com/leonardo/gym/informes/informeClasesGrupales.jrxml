@@ -9,7 +9,7 @@
 	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<parameter name="ID_CLASE" class="java.lang.Long"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Gabri\\Documents\\NetBeansProjects\\Tarea4Informes\\src\\Informes\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["./src/main/java/com/leonardo/gym/informes/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[Select * from ClasesGrupales where id_clase=$P{ID_CLASE}]]>
