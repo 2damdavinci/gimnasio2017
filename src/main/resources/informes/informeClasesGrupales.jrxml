@@ -9,7 +9,7 @@
 	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<parameter name="ID_CLASE" class="java.lang.Long"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["./src/main/java/com/leonardo/gym/informes/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["./src/main/resources/informes/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[Select * from ClasesGrupales where id_clase=$P{ID_CLASE}]]>
@@ -69,7 +69,7 @@
 		<band height="159" splitType="Stretch">
 			<image scaleImage="FillFrame">
 				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="553" height="159" uuid="28eec507-35f3-4484-a302-14e75d665d85"/>
-				<imageExpression><![CDATA["./src/main/java/com/leonardo/gym/informes/LogoClasesgrupales.png"]]></imageExpression>
+				<imageExpression><![CDATA["./informes/LogoClasesgrupales.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

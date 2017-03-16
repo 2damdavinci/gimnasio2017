@@ -11,7 +11,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["./src/main/java/com/leonardo/gym/informes/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["./src/main/resources/informes/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[Select ho.id_horario, ho.id_clase, ho.profesor, DATE_FORMAT(fecha,'%d/%m/%Y') as fecha, ho.plazasLibres, ho.hora, cla.id_clase, cla.nombre, cla.descripcion, cla.aforo from HorarioClasesGrupales as ho join ClasesGrupales as cla on ho.id_clase=cla.id_clase where id_horario=$P{ID_HORARIO}]]>
@@ -109,7 +109,7 @@
 		<band height="151" splitType="Stretch">
 			<image scaleImage="FillFrame">
 				<reportElement x="5" y="0" width="548" height="146" uuid="3abef3a2-4083-4779-8344-0c371a64a64e"/>
-				<imageExpression><![CDATA["./src/main/java/com/leonardo/gym/informes/LogoHorarios.png"]]></imageExpression>
+				<imageExpression><![CDATA["./informes/LogoHorarios.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

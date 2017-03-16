@@ -3,8 +3,6 @@
 PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN"
 "http://java.sun.com/products/javahelp/index_1_0.dtd">
 <index version="1.0">
-<indexitem text="Gestión de Clases Grupales" target="aplicacion">
-<indexitem text="Clases Grupales" target="clases_grupales"/>
-<indexitem text="Horarios Clases Grupales" target="horarios_clases_grupales"/>
-<indexitem text="Detalles Clases Grupales" target="detalles_clases_grupales"/>
+<indexitem text="Lanzador Informes" target="aplicacion">
+<indexitem text="Informes" target="lanzador"/>
 </index>

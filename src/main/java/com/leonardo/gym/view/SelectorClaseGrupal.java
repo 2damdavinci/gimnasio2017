@@ -56,8 +56,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
     ClasesGrupalesDAO clase = new ClasesGrupalesDAO();
     HorariosClasesGrupalesDAO horario = new HorariosClasesGrupalesDAO();
     ClaseGrupal c,cl;
-    String reportSource = "./src/main/java/com/leonardo/gym/informes/informeClasesGrupales.jrxml";
-    String reportSource1 = "./src/main/java/com/leonardo/gym/informes/informeHorarios.jrxml";
+    String reportSource = "./src/main/resources/informes/informeClasesGrupales.jrxml";
+    String reportSource1 = "./src/main/resources/informes/informeHorarios.jrxml";
     Map parametros = new HashMap();
     JasperReport reporte;
     String ruta;
@@ -70,6 +70,9 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         ayuda();
         modelo = (DefaultTableModel) tabClases.getModel();
         modelo1 = (DefaultTableModel) tabHorario.getModel();
+        //En estos listener comprobaremos que cuando se haga doble click en una fila de las la tablas lanzara
+        //la segunda tabla en caso de hacer click en la primera y lanzara la ventana de añadir cliente cuando hacemos
+        //click en la segunda
         tabClases.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
@@ -106,7 +109,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         });
         RecargarTablaClase();
     }
-
+    
+    //En este metodo recargamos los datos de la tabla cada vez que lo llamemos
     public void RecargarTablaClase() {
         for (int i = 0; i < tabClases.getRowCount(); i++) {
             modelo.removeRow(i);
@@ -174,11 +178,13 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
         mniTemasDeAyuda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Clases Grupales"));
 
         jLabel2.setText("Seleccione la clase grupal deseada:");
 
+        tabClases.setAutoCreateRowSorter(true);
         tabClases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -195,7 +201,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabClases.setToolTipText("doble click para ver los horarios");
+        tabClases.setToolTipText("Doble click para ver los horarios");
         tabClases.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tabClases);
 
@@ -237,7 +243,6 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnAñadir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -245,13 +250,14 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnInforme)))
+                        .addComponent(btnInforme))
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -268,6 +274,7 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
 
         jLabel1.setText("Seleccione el horario deseado:");
 
+        tabHorario.setAutoCreateRowSorter(true);
         tabHorario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -284,8 +291,10 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabHorario.setToolTipText("Doble click para añadir o eliminar alumnos");
         tabHorario.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabHorarios.setViewportView(tabHorario);
+        tabHorario.getAccessibleContext().setAccessibleDescription("Doble click para añadir o eliminar alumnos");
 
         btnAñadir1.setText("Añadir");
         btnAñadir1.setEnabled(false);
@@ -355,6 +364,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        tabHorarios.getAccessibleContext().setAccessibleDescription("");
+
         jMenu1.setText("Archivo");
 
         mniSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
@@ -401,12 +412,13 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
         jclase = new AñadirClase(this, true);
         jclase.setVisible(true);
     }//GEN-LAST:event_btnAñadirActionPerformed
-
+    //Este metodo elimina la clase seleccionada de la base de datos y llamamos
+    //a recargartabla
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if (tabClases.getSelectedRow() > -1) {
             int dialogResult = JOptionPane.showConfirmDialog(null, "Esta seguro de borrar la clase: " + tabClases.getValueAt(tabClases.getSelectedRow(), 1).toString(), "ATENCION", JOptionPane.YES_NO_OPTION);
@@ -429,7 +441,8 @@ public class SelectorClaseGrupal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Tiene que seleccionar la clase que desee eliminar");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
-
+//Creamos un objeto con los datos de la clase seleccionada y se lo pasamos 
+//al jdialog de modificacion
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if (tabClases.getSelectedRow() > -1) {
             String nombre, descripcion, aforo, id;

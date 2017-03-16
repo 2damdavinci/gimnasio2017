@@ -45,6 +45,7 @@
     </dependencies>
 <build>
         <finalName>my-app</finalName>
+     
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -56,13 +57,16 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
+                         
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
                             <archive>
+                                
                                 <manifest>
                                     <!-- Clase Main -->
                                     <mainClass>com.leonardo.gym.view.SelectorClaseGrupal</mainClass>
+                                    
                                 </manifest>
                             </archive>
                         </configuration>

@@ -81,6 +81,11 @@ public class AñadirClase extends javax.swing.JDialog {
         });
 
         btnCacelar.setText("Cancelar");
+        btnCacelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCacelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -176,6 +181,10 @@ public class AñadirClase extends javax.swing.JDialog {
         }
       }
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCacelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCacelarActionPerformed
+       dispose();
+    }//GEN-LAST:event_btnCacelarActionPerformed
 
     /**
      * @param args the command line arguments
