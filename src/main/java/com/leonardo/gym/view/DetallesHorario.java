@@ -52,8 +52,10 @@ public class DetallesHorario extends javax.swing.JDialog {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(BusquedaPane.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetallesHorario.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
         cmbClientes.addActionListener(new ActionListener() {
 
             @Override
@@ -380,7 +382,7 @@ public class DetallesHorario extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "No se encontraron usuarios con esos datos");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BusquedaPane.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetallesHorario.class.getName()).log(Level.SEVERE, null, ex);
         }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El id tiene que ser un número, no se admiten caracteres");

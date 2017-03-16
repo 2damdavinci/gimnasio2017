@@ -227,6 +227,7 @@ public class AñadirClase extends javax.swing.JDialog {
             }
         });
     }
+   //Ha este metodo solo lo llamamos desde la clase SelectorClaseGrupal cundo clickemos el boton modificar
   public void ActualizarTextos(ClaseGrupal clase) {
         txtNombre.setText(clase.getNombre());
         txtADescripcion.setText(clase.getDescripcion());
